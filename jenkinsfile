@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Install Maven') {
+            steps {
+                script {
+                    sh 'wget https://apache.mirrors.nublue.co.uk/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz'
+                    sh 'tar -xvzf apache-maven-3.8.4-bin.tar.gz'
+                    sh 'export M2_HOME=$PWD/apache-maven-3.8.4'
+                    sh 'export PATH=$M2_HOME/bin:$PATH'
+                }
+            }
+        }
+        
+        stage('Install Docker') {
+            steps {
+                script {
+                    sh 'sudo apt-get update'
+                    sh 'sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release'
+                    sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg'
+                    sh 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
+                    sh 'sudo apt-get update'
+                    sh 'sudo apt-get install -y docker-ce docker-ce-cli containerd.io'
+                }
+            }
+        }
+    }
+}
