@@ -14,8 +14,9 @@
 	<name>JenkinsJobApplication</name>
 	<description>JenkinsJobApplication</description>
 	<properties>
-		<java.version>17</java.version>
-	</properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+         </properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
